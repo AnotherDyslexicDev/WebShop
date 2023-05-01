@@ -24,15 +24,15 @@
 			data-bs-ride="carousel">
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<img src="${pageContext.request.contextPath}/img/kit_mancuernas.webp"
+					<img src="${pageContext.request.contextPath}${sliders.get(0).getImagenSlider()}"
 						class="d-block w-100" alt="Destacados 1">
 				</div>
 				<div class="carousel-item">
-					<img src="${pageContext.request.contextPath}/img/AB_Weel.webp"
+					<img src="${pageContext.request.contextPath}${sliders.get(1).getImagenSlider()}"
 						class="d-block w-100" alt="Destacados 2">
 				</div>
 				<div class="carousel-item">
-					<img src="${pageContext.request.contextPath}/img/kit_yoga.webp"
+					<img src="${pageContext.request.contextPath}${sliders.get(2).getImagenSlider()}"
 						class="d-block w-100" alt="Destacados 3">
 				</div>
 			</div>

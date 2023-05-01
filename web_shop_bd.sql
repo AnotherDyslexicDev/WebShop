@@ -232,6 +232,7 @@ CREATE TABLE IF NOT EXISTS `web_shop_bd`.`slider` (
   `creado` TIMESTAMP NOT NULL,
   `actualizado` TIMESTAMP NOT NULL,
   `productos_idProducto` INT NOT NULL,
+  `imagenSlider` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`idSlider`),
   INDEX `fk_slider_productos1_idx` (`productos_idProducto` ASC) VISIBLE,
   CONSTRAINT `fk_slider_productos1`
@@ -270,19 +271,19 @@ VALUES ('David Morales Palta', '15763620-0', 'principal 297', '+56989738297', 'c
 -- insert productos
 -- Insertar producto "Kit Yoga"
 INSERT INTO web_shop_bd.productos (nombreProducto, descripcion, precio, stock, creado, actualizado, imagen, categorias_idCategoria, proveedores_idProveedor, imagenSlider)
-VALUES ('Kit Yoga', 'Set de implementos para la práctica de Yoga', 25000, 10, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '/img/kit_yoga.webp', 3, 1, '/img/kit_yoga_400.webp');
+VALUES ('Kit Yoga', 'Set de implementos para la práctica de Yoga', 25000, 10, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '/img/kit_yoga_400.webp', 3, 1, '/img/kit_yoga.webp');
 
 -- Insertar producto "Kit Mancuernas"
 INSERT INTO web_shop_bd.productos (nombreProducto, descripcion, precio, stock, creado, actualizado, imagen, categorias_idCategoria, proveedores_idProveedor, imagenSlider)
-VALUES ('Kit Mancuernas', 'Set de mancuernas de diferentes pesos', 35000, 8, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '/img/kit_mancuernas.webp', 2, 1, '/img/kit_mancuernas_400.webp');
+VALUES ('Kit Mancuernas', 'Set de mancuernas de diferentes pesos', 35000, 8, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '/img/kit_mancuernas_400.webp', 2, 1, '/img/kit_mancuernas.webp');
 
 -- Insertar producto "Ab Wheel"
 INSERT INTO web_shop_bd.productos (nombreProducto, descripcion, precio, stock, creado, actualizado, imagen, categorias_idCategoria, proveedores_idProveedor, imagenSlider)
-VALUES ('Ab Wheel', 'Rueda de ejercicio para trabajar el abdomen', 15000, 15, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '/img/AB_Weel.webp', 4, 1, '/img/ab_wheel_400.webp');
+VALUES ('Ab Wheel', 'Rueda de ejercicio para trabajar el abdomen', 15000, 15, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '/img/ab_wheel_400.webp', 4, 1, '/img/AB_Weel.webp');
 
-INSERT INTO web_shop_bd.slider (productos_idProducto,creado,actualizado) VALUES (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
-INSERT INTO web_shop_bd.slider (productos_idProducto,creado,actualizado) VALUES (2, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
-INSERT INTO web_shop_bd.slider (productos_idProducto,creado,actualizado) VALUES (3, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+INSERT INTO web_shop_bd.slider (productos_idProducto,imagenSlider,creado,actualizado) VALUES (1,'/img/kit_yoga.webp', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+INSERT INTO web_shop_bd.slider (productos_idProducto,imagenSlider,creado,actualizado) VALUES (2,'/img/kit_mancuernas.webp', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+INSERT INTO web_shop_bd.slider (productos_idProducto,imagenSlider,creado,actualizado) VALUES (3,'/img/AB_Weel.webp', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

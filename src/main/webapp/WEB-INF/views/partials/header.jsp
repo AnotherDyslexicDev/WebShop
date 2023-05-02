@@ -30,9 +30,9 @@
 						</ul></li>
 				</ul>
 				<form class="d-flex">
-					<a href="/login" class="btn btn-outline-dark"> <i
+					<a href="${pageContext.request.contextPath}/login" class="btn btn-outline-light mx-2"> <i
 						class="bi bi-person"></i>
-					</a> <a href="/carrito" class="btn btn-outline-dark"> <i
+					</a> <a href="${pageContext.request.contextPath}/carrito" class="btn btn-outline-light me-2"> <i
 						class="bi bi-cart"></i>
 					</a> <input class="form-control me-2" type="search"
 						placeholder="Buscar productos" aria-label="Buscar">

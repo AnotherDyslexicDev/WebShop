@@ -1,11 +1,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Tienda en línea</title>
+<title>Web Shop</title>
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon.ico">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- Agregar enlaces de Bootstrap 5.3 CDN -->
 		<link
@@ -23,18 +25,12 @@
 		<div id="carouselExampleControls" class="carousel slide"
 			data-bs-ride="carousel">
 			<div class="carousel-inner">
-				<div class="carousel-item active">
-					<img src="${pageContext.request.contextPath}${sliders.get(0).getImagenSlider()}"
-						class="d-block w-100" alt="Destacados 1">
-				</div>
-				<div class="carousel-item">
-					<img src="${pageContext.request.contextPath}${sliders.get(1).getImagenSlider()}"
-						class="d-block w-100" alt="Destacados 2">
-				</div>
-				<div class="carousel-item">
-					<img src="${pageContext.request.contextPath}${sliders.get(2).getImagenSlider()}"
-						class="d-block w-100" alt="Destacados 3">
-				</div>
+<c:forEach var="slider" items="${sliders}" varStatus="loop">
+    <div class="carousel-item${loop.first ? ' active' : ''}">
+        <img src="${pageContext.request.contextPath}${slider.imagenSlider}"
+            class="d-block w-100" alt="Destacados ${loop.index + 1}">
+    </div>
+</c:forEach>
 			</div>
 			<button class="carousel-control-prev" type="button"
 				data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -51,39 +47,22 @@
 		<div class="container my-5">
 			<h2 class="text-center">Productos más vendidos</h2>
 			<div class="row row-cols-1 row-cols-md-3 g-4">
-				<div class="col">
-					<div class="card">
-						<img src="${pageContext.request.contextPath}/img/kit_mancuernas_400.webp"
-							class="card-img-top" alt="Producto 1">
-						<div class="card-body">
-							<h5 class="card-title">Producto 1</h5>
-							<p class="card-text">Descripción del producto 1.</p>
-							<a href="#" class="btn btn-primary">Agregar al carrito</a>
-						</div>
-					</div>
-				</div>
-				<div class="col">
-					<div class="card">
-						<img src="${pageContext.request.contextPath}/img/kit_yoga_400.webp"
-							class="card-img-top" alt="Producto 2">
-						<div class="card-body">
-							<h5 class="card-title">Producto 2</h5>							
-							<p class="card-text">Descripción del producto 2.</p>
-							<a href="#" class="btn btn-primary">Agregar al carrito</a>
-						</div>
-					</div>
-				</div>
-				<div class="col">
-					<div class="card">
-						<img src="${pageContext.request.contextPath}/img/ab_wheel_400.webp"
-							class="card-img-top" alt="Producto 3">
-						<div class="card-body">
-							<h5 class="card-title">Producto 3</h5>
-							<p class="card-text">Descripción del producto 3.</p>
-							<a href="#" class="btn btn-primary">Agregar al carrito</a>
-						</div>
-					</div>
-				</div>
+<c:forEach var="producto" items="${productos}">
+  <div class="col">
+    <div class="card">
+      <img src="${pageContext.request.contextPath}${producto.imagen}" class="card-img-top" alt="${producto.nombreProducto}">
+      <div class="card-body">
+        <h5 class="card-title">${producto.nombreProducto}</h5>
+        <p class="card-text">${producto.descripcion}</p>
+        <p class="card-text"><strong>Precio: ${producto.precio}</strong></p>
+        <form method="post" action="CarritoController">
+          <input type="hidden" name="idProducto" value="${producto.idProducto}">
+          <button type="submit" class="btn btn-primary">Agregar al carrito</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</c:forEach>
 			</div>
 		</div>
 
@@ -110,7 +89,7 @@
 						<li><a href="#!" class="text-dark">Teléfono: +1234567890</a>
 						</li>
 						<li><a href="#!" class="text-dark">Correo electrónico:
-								info@tiendaenlinea.com</a></li>
+								contacto@fullstackdavid.com</a></li>
 					</ul>
 				</div>
 			</div>

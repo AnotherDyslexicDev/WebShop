@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -15,6 +16,7 @@ public class FormaPago {
     private String nombreFormaPago;
     private java.sql.Timestamp creada;
     private java.sql.Timestamp actualizada;
-    
+    @JoinColumn(name = "estados_idEstado")
+    private int estados_idEstado;
     // getters y setters
 }

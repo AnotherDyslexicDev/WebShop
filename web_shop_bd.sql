@@ -48,7 +48,8 @@ CREATE TABLE IF NOT EXISTS `web_shop_bd`.`usuario` (
   `direccion` VARCHAR(45) NOT NULL,
   `creado` TIMESTAMP NOT NULL,
   `actualizado` TIMESTAMP NOT NULL,
-  `token` VARCHAR(50) NOT NULL,
+  `token` VARCHAR(50),
+  `fechaExpiracionToken` TIMESTAMP,
   `roles_idRol` INT NOT NULL,
   `estados_idEstado` INT NOT NULL,
   PRIMARY KEY (`idUsuario`),
@@ -304,6 +305,11 @@ VALUES ('Administrador', 'Rol con permisos de administrador', CURRENT_TIMESTAMP(
 -- Insertar rol "Usuario"
 INSERT INTO web_shop_bd.roles (nombreRol, descripcion, creado, actualizado,estados_idEstado)
 VALUES ('Usuario', 'Rol para usuarios regulares', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),1);
+
+INSERT INTO `web_shop_bd`.`usuario` 
+(`nombreUsuario`, `email`, `telefono`, `password`, `direccion`, `creado`, `actualizado`, `roles_idRol`, `estados_idEstado`) 
+VALUES 
+('David Morales Palta', 'contacto@fullstackdavid.com', '+56989738297', 'password123', 'Calle Falsa 123',  CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 1, 1);
 
 -- Insertar categoría raíz "Implementos deportivos"
 INSERT INTO `web_shop_bd`.`categorias` (`idCategoriaPadre`, `nombreCategoria`, `descripcion`,`estados_idEstado`, `creado`, `actualizado`)

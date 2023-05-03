@@ -20,18 +20,19 @@
 	<div class="container">
 		<div class="row ">
 			<div class="col-12 d-flex justify-content-center ">
-				<form class="col-4 mt-4" action="/LoginController" method="post">
-					<fieldset>
+				<div class=" col-12 col-md-9 col-lg-5 col-xl-5 mx-3 my-5 border border-dark rounded-3 d-flex justify-content-center">
+					<form class="col-9 my-4" action="${pageContext.request.contextPath}/loginForm" method="post">
+
 						<legend>Login</legend>
 						<div class="mb-3">
-							<label for="email" class="form-label">Email</label> <input
-								type="email" class="form-control" id="email" name="email"
+							<label for="email" class="form-label mb-3">Email</label> <input
+								type="email" class="form-control mb-3" id="email" name="email"
 								aria-describedby="emailHelp" placeholder="correo@dominio.com">
 							<!--  <div id="emailHelp" class="form-text">compruebe el formato AAA@aa.aa</div>-->
 						</div>
 						<div class="mb-3">
-							<label for="exampleInputPassword1" class="form-label">Password</label>
-							<input type="password" class="form-control"
+							<label for="exampleInputPassword1" class="form-label mb-3">Password</label>
+							<input type="password" class="form-control mb-3"
 								id="exampleInputPassword1">
 						</div>
 						<div class="mb-3 form-check">
@@ -40,8 +41,9 @@
 								for="exampleCheck1">Recuerdame</label>
 						</div>
 						<button type="submit" class="btn btn-primary">Iniciar</button>
-					</fieldset>
-				</form>
+
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>

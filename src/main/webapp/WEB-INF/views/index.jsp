@@ -73,7 +73,7 @@
 			<div class="row">
 				<div class="col-lg-6 col-md-12 mb-4 mb-md-0">
 					<h5 class="text-uppercase">Tienda en línea</h5>
-					<p>Una tienda en línea creada con Spring MVC y Bootstrap.</p>
+					<p>Una tienda en línea creada con Spring MVC, Hibernate y Bootstrap.</p>
 				</div>
 				<div class="col-lg-3 col-md-6 mb-4 mb-md-0">
 					<h5 class="text-uppercase">Links</h5>

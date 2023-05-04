@@ -1,4 +1,4 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,15 +13,25 @@
 	rel="stylesheet"
 	integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
 	crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/10.16.11/sweetalert2.min.css" integrity="sha512-/D4S05MnQx/q7V0+15CCVZIeJcV+Z+ejL1ZgkAcXE1KZxTE4cYDvu+Fz+cQO9GopKrDzMNNgGK+dbuqza54jgw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/10.16.11/sweetalert2.min.js" integrity="sha512-20JhbH7IY5gxE+xRzfwM6LyPRjUNhAUCE3T/9na1aAsUyTN1ZL8fmXlsC2vrzkeXsTwVT/cu2PuDPY/oEbFZ0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<script src="${pageContext.request.contextPath}/js/webshop.js"></script>
+
 </head>
 <body>
 	<div class="container">
 		<div class="row ">
 			<div class="col-12 d-flex justify-content-center ">
 				<div class=" col-12 col-md-9 col-lg-5 col-xl-5 mx-3 my-5 border border-dark rounded-3 d-flex justify-content-center">
-					<form class="col-9 my-4" action="${pageContext.request.contextPath}/loginForm" method="post">
+					<% if (request.getAttribute("error") != null) { %>
+  
+  <script>
+    showError("<%= request.getAttribute("error") %>");
+  </script>
+<% } %>
+					<form class="col-9 my-4" id="loginForm" name="loginForm" action="${pageContext.request.contextPath}/loginForm" method="post">
 
 						<legend>Login</legend>
 						<div class="mb-3">
@@ -31,13 +41,13 @@
 							<!--  <div id="emailHelp" class="form-text">compruebe el formato AAA@aa.aa</div>-->
 						</div>
 						<div class="mb-3">
-							<label for="exampleInputPassword1" class="form-label mb-3">Password</label>
-							<input type="password" class="form-control mb-3"
-								id="exampleInputPassword1">
+							<label for="password" class="form-label mb-3">Password</label>
+							<input type="password" class="form-control mb-3" name="password"
+								id="password">
 						</div>
 						<div class="mb-3 form-check">
 							<input type="checkbox" class="form-check-input"
-								id="exampleCheck1"> <label class="form-check-label"
+								id="rememberMe" name="rememberMe">  <label class="form-check-label"
 								for="exampleCheck1">Recuerdame</label>
 						</div>
 						<button type="submit" class="btn btn-primary">Iniciar</button>
@@ -63,5 +73,9 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
 		integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	
+	
+
+
 </body>
 </html>

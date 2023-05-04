@@ -31,10 +31,30 @@
 				</ul>
 				<form class="d-flex">
 					<a href="${pageContext.request.contextPath}/login" class="btn btn-outline-light mx-2"> <i
-						class="bi bi-person"></i>
-					</a> <a href="${pageContext.request.contextPath}/carrito" class="btn btn-outline-light me-2"> <i
-						class="bi bi-cart"></i>
-					</a> <input class="form-control me-2" type="search"
+						class="bi bi-person"></i></a>
+					 <a href="${pageContext.request.contextPath}/carrito" class="btn btn-outline-light me-2"> <i
+						class="bi bi-cart"></i></a>
+						<!--  <div class="btn btn-outline-light me-2 dropdown">
+					    <i class="bi bi-cart"></i>
+					    <span class="badge bg-danger">${detallesCarrito.size()}</span>
+					    <div class="dropdown-menu dropdown-menu-end">
+					      <ul class="list-group">
+					        <c:forEach var="detalle" items="${detallesCarrito}">
+					          <li class="list-group-item">${detalle.nombreProducto} (x${detalle.cantidad})</li>
+					        </c:forEach>
+					      </ul>
+					      <div class="dropdown-divider"></div>
+					      <div class="d-flex justify-content-between align-items-center px-3">
+					        <span class="fw-bold">Total:</span>
+					        <span>$ ${total}</span>
+					      </div>
+					      <div class="d-flex justify-content-between align-items-center px-3">
+					        <span class="fw-bold">Subtotal:</span>
+					        <span>$ ${subtotal}</span>
+					      </div>
+					    </div>
+					  </div>-->
+					 <input class="form-control me-2" type="search"
 						placeholder="Buscar productos" aria-label="Buscar">
 					<button class="btn btn-outline-light" type="submit">Buscar</button>
 				</form>

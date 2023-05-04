@@ -23,6 +23,7 @@
 	<mvc:resources mapping="/WEB-INF/resources/**" location="/WEB-INF/resources/" />
 	<mvc:resources mapping="/img/**" location="/resources/static/img/" />
 	<mvc:resources mapping="/img/**.webp" location="/resources/static/img/" />
+	<mvc:resources mapping="/js/**" location="/resources/static/js/" />
 
 	<!-- View Resolver -->
 	<bean
@@ -57,6 +58,7 @@
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				
 			</props>
 		</property>
 

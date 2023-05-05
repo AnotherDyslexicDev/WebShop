@@ -310,7 +310,58 @@ CREATE TABLE IF NOT EXISTS `web_shop_bd`.`slider` (
 ENGINE = InnoDB
 AUTO_INCREMENT = 7
 DEFAULT CHARACTER SET = utf8mb3;
+INSERT INTO estados (nombreEstado, creado, actualizado) VALUES ('activo',CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+INSERT INTO estados (nombreEstado, creado, actualizado) VALUES ('inactivo',CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+INSERT INTO estados (nombreEstado, creado, actualizado) VALUES ('descontinuado',CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+INSERT INTO estados (nombreEstado, creado, actualizado) VALUES ('eliminado',CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+-- Insertar rol "Administrador"
+INSERT INTO web_shop_bd.roles (nombreRol, descripcion, creado, actualizado,estados_idEstado)
+VALUES ('Administrador', 'Rol con permisos de administrador', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),1);
 
+-- Insertar rol "Usuario"
+INSERT INTO web_shop_bd.roles (nombreRol, descripcion, creado, actualizado,estados_idEstado)
+VALUES ('Usuario', 'Rol para usuarios regulares', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),1);
+
+INSERT INTO `web_shop_bd`.`usuario` 
+(`nombreUsuario`, `email`, `telefono`, `password`, `direccion`, `creado`, `actualizado`, `roles_idRol`, `estados_idEstado`) 
+VALUES 
+('David Morales Palta', 'contacto@fullstackdavid.com', '+56989738297', 'password123', 'Calle Falsa 123',  CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 1, 1);
+
+-- Insertar categoría raíz "Implementos deportivos"
+INSERT INTO `web_shop_bd`.`categorias` (`idCategoriaPadre`, `nombreCategoria`, `descripcion`,`estados_idEstado`, `creado`, `actualizado`)
+VALUES (NULL, 'Implementos deportivos', 'Implementos deportivos para diferentes actividades físicas',1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+
+-- Insertar subcategoría "Mancuernas"
+INSERT INTO `web_shop_bd`.`categorias` (`idCategoriaPadre`, `nombreCategoria`, `descripcion`,`estados_idEstado`, `creado`, `actualizado`)
+VALUES (1, 'Mancuernas', 'Mancuernas de diferentes pesos',1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+
+-- Insertar subcategoría "Yoga"
+INSERT INTO `web_shop_bd`.`categorias` (`idCategoriaPadre`, `nombreCategoria`, `descripcion`,`estados_idEstado`, `creado`, `actualizado`)
+VALUES (1, 'Yoga', 'Implementos para yoga',1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+
+-- Insertar subcategoría "Equipamiento de fitness"
+INSERT INTO `web_shop_bd`.`categorias` (`idCategoriaPadre`, `nombreCategoria`, `descripcion`,`estados_idEstado`, `creado`, `actualizado`)
+VALUES (1, 'Equipamiento de fitness', 'Aparatos para hacer ejercico',1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+-- Insert Proveedor
+INSERT INTO `web_shop_bd`.`proveedores` (`nombreProveedor`, `rutProveedor`, `direccionProveedor`, `telefonoProveedor`, `correoProveedor`,estados_idEstado)
+VALUES ('David Morales Palta', '15763620-0', 'Calle Falsa 123', '+56989738297', 'contacto@fullstackdavid.com',1);
+
+-- insert productos
+-- Insertar producto "Kit Yoga"
+INSERT INTO web_shop_bd.productos (nombreProducto, descripcion, precio, stock, creado, actualizado, imagen, categorias_idCategoria, proveedores_idProveedor, imagenSlider,estados_idEstado)
+VALUES ('Kit Yoga', 'Set de implementos para la práctica de Yoga', 25000, 10, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '/img/kit_yoga_400.webp', 3, 1, '/img/kit_yoga.webp',1);
+
+-- Insertar producto "Kit Mancuernas"
+INSERT INTO web_shop_bd.productos (nombreProducto, descripcion, precio, stock, creado, actualizado, imagen, categorias_idCategoria, proveedores_idProveedor, imagenSlider,estados_idEstado)
+VALUES ('Kit Mancuernas', 'Set de mancuernas de diferentes pesos', 35000, 8, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '/img/kit_mancuernas_400.webp', 2, 1, '/img/kit_mancuernas.webp',1);
+
+-- Insertar producto "Ab Wheel"
+INSERT INTO web_shop_bd.productos (nombreProducto, descripcion, precio, stock, creado, actualizado, imagen, categorias_idCategoria, proveedores_idProveedor, imagenSlider,estados_idEstado)
+VALUES ('Ab Wheel', 'Rueda de ejercicio para trabajar el abdomen', 15000, 15, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '/img/ab_wheel_400.webp', 4, 1, '/img/AB_Weel.webp',1);
+
+INSERT INTO web_shop_bd.slider (productos_idProducto,imagenSlider,creado,actualizado,estados_idEstado) VALUES (1,'/img/kit_yoga.webp', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),1);
+INSERT INTO web_shop_bd.slider (productos_idProducto,imagenSlider,creado,actualizado,estados_idEstado) VALUES (2,'/img/kit_mancuernas.webp', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),1);
+INSERT INTO web_shop_bd.slider (productos_idProducto,imagenSlider,creado,actualizado,estados_idEstado) VALUES (3,'/img/AB_Weel.webp', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),1);
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

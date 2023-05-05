@@ -2,7 +2,7 @@ package BootCamp.WebShop.model;
 
 
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -86,7 +86,10 @@ public class Carrito {
 		this.usuario = usuario;
 	}
 	public List<DetalleCarrito> getDetallesCarrito() {
-		return detallesCarrito;
+	    if (detallesCarrito == null) {
+	        detallesCarrito = new ArrayList<>();
+	    }
+	    return detallesCarrito;
 	}
 	public void setDetallesCarrito(List<DetalleCarrito> detallesCarrito) {
 		this.detallesCarrito = detallesCarrito;

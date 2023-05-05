@@ -9,12 +9,16 @@ import BootCamp.WebShop.model.DetalleCarrito;
 @Component
 public class DetalleCarritoDao {
 	private SessionFactory sessionFactory;
-	
+
+	@Autowired
+	public DetalleCarritoDao(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
 	public DetalleCarrito save(DetalleCarrito detalleCarrito) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(detalleCarrito);
 		return detalleCarrito;
-		
 	}
-
 }
+

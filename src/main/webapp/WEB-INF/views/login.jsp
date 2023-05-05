@@ -46,9 +46,8 @@
 								id="password">
 						</div>
 						<div class="mb-3 form-check">
-							<input type="checkbox" class="form-check-input"
-								id="rememberMe" name="rememberMe">  <label class="form-check-label"
-								for="exampleCheck1">Recuerdame</label>
+						  <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe" value="true">  
+						  <label class="form-check-label" for="rememberMe">Recuérdame</label>
 						</div>
 						<button type="submit" class="btn btn-primary">Iniciar</button>
 

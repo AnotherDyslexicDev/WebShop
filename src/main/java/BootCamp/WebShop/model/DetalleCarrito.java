@@ -14,27 +14,30 @@ import java.sql.Timestamp;
 public class DetalleCarrito {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JoinColumn(name = "idDetalleCarrito")
     private int idDetalleCarrito;
     private Timestamp creado;
-    private Timestamp actualizado;    
+    private Timestamp actualizado;
+    @ManyToOne
     @JoinColumn(name = "carrito_idCarrito")
-    private int carrito_idCarrito;    
+    private Carrito carrito;
+    @ManyToOne
     @JoinColumn(name = "productos_idProducto")
-    private int productos_idProducto;
-	public DetalleCarrito(int idDetalleCarrito, Timestamp creado, Timestamp actualizado, int carrito_idCarrito,
-			int productos_idProducto) {
+    private Productos producto;
+    private int cantidad;
+	public DetalleCarrito(int idDetalleCarrito, Timestamp creado, Timestamp actualizado, Carrito carrito,
+			Productos producto, int cantidad) {
 		super();
 		this.idDetalleCarrito = idDetalleCarrito;
 		this.creado = creado;
 		this.actualizado = actualizado;
-		this.carrito_idCarrito = carrito_idCarrito;
-		this.productos_idProducto = productos_idProducto;
+		this.carrito = carrito;
+		this.producto = producto;
+		this.cantidad = cantidad;
 	}
 	public DetalleCarrito() {
 		super();
 	}
-	
-	// getters y setters
 	public int getIdDetalleCarrito() {
 		return idDetalleCarrito;
 	}
@@ -53,26 +56,29 @@ public class DetalleCarrito {
 	public void setActualizado(Timestamp actualizado) {
 		this.actualizado = actualizado;
 	}
-	public int getCarrito_idCarrito() {
-		return carrito_idCarrito;
+	public Carrito getCarrito() {
+		return carrito;
 	}
-	public void setCarrito_idCarrito(int carrito_idCarrito) {
-		this.carrito_idCarrito = carrito_idCarrito;
+	public void setCarrito(Carrito carrito) {
+		this.carrito = carrito;
 	}
-	public int getProductos_idProducto() {
-		return productos_idProducto;
+	public Productos getProducto() {
+		return producto;
 	}
-	public void setProductos_idProducto(int productos_idProducto) {
-		this.productos_idProducto = productos_idProducto;
+	public void setProducto(Productos producto) {
+		this.producto = producto;
+	}
+	public int getCantidad() {
+		return cantidad;
+	}
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
 	}
 	@Override
 	public String toString() {
 		return "DetalleCarrito [idDetalleCarrito=" + idDetalleCarrito + ", creado=" + creado + ", actualizado="
-				+ actualizado + ", carrito_idCarrito=" + carrito_idCarrito + ", productos_idProducto="
-				+ productos_idProducto + "]";
-	}    
-    
-    
+				+ actualizado + ", carrito=" + carrito + ", producto=" + producto + ", cantidad=" + cantidad + "]";
+	}
 	
-	
+    
 }

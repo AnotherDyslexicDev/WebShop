@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
 import lombok.ToString;
 
 @ToString
@@ -29,11 +31,12 @@ public class Productos {
     private String categorias_idCategoria;   
     @JoinColumn(name = "proveedores_idProveedor")
     private String proveedores_idProveedor;
+    @OneToOne
     @JoinColumn(name = "estados_idEstado")
-    private int estados_idEstado;
+    private Estados estados;
 	public Productos(int idProducto, String nombreProducto, String descripcion, int precio, int stock, Timestamp creado,
 			Timestamp actualizado, String imagen, String imagenSlider, String categorias_idCategoria,
-			String proveedores_idProveedor, int estados_idEstado) {
+			String proveedores_idProveedor, Estados estados) {
 		super();
 		this.idProducto = idProducto;
 		this.nombreProducto = nombreProducto;
@@ -46,7 +49,7 @@ public class Productos {
 		this.imagenSlider = imagenSlider;
 		this.categorias_idCategoria = categorias_idCategoria;
 		this.proveedores_idProveedor = proveedores_idProveedor;
-		this.estados_idEstado = estados_idEstado;
+		this.estados = estados;
 	}
 	public Productos() {
 		super();
@@ -117,19 +120,21 @@ public class Productos {
 	public void setProveedores_idProveedor(String proveedores_idProveedor) {
 		this.proveedores_idProveedor = proveedores_idProveedor;
 	}
-	public int getEstados_idEstado() {
-		return estados_idEstado;
+	public Estados getEstados() {
+		return estados;
 	}
-	public void setEstados_idEstado(int estados_idEstado) {
-		this.estados_idEstado = estados_idEstado;
+	public void setEstados(Estados estados) {
+		this.estados = estados;
 	}
 	@Override
 	public String toString() {
 		return "Productos [idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", descripcion="
 				+ descripcion + ", precio=" + precio + ", stock=" + stock + ", creado=" + creado + ", actualizado="
 				+ actualizado + ", imagen=" + imagen + ", imagenSlider=" + imagenSlider + ", categorias_idCategoria="
-				+ categorias_idCategoria + ", proveedores_idProveedor=" + proveedores_idProveedor
-				+ ", estados_idEstado=" + estados_idEstado + "]";
+				+ categorias_idCategoria + ", proveedores_idProveedor=" + proveedores_idProveedor + ", estados="
+				+ estados + "]";
 	}
+	
+    
     
 }

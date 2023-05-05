@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
 import lombok.ToString;
 
 @ToString
@@ -21,17 +23,18 @@ public class Slider {
 	private String imagenSlider;
 	private java.sql.Timestamp creado;
 	private java.sql.Timestamp actualizado;
-    @JoinColumn(name = "estados_idEstado")
-	private int estados_idEstado;
-	public Slider(int idSlider, int productos_idProducto, String imagenSlider, Timestamp creado,
-			Timestamp actualizado,int estados_idEstado) {
+	 @OneToOne
+	    @JoinColumn(name = "estados_idEstado")
+	    private Estados estados;
+	public Slider(int idSlider, int productos_idProducto, String imagenSlider, Timestamp creado, Timestamp actualizado,
+			Estados estados) {
 		super();
 		this.idSlider = idSlider;
 		this.productos_idProducto = productos_idProducto;
 		this.imagenSlider = imagenSlider;
 		this.creado = creado;
 		this.actualizado = actualizado;
-		this.estados_idEstado=estados_idEstado; 
+		this.estados = estados;
 	}
 	public Slider() {
 		super();
@@ -65,21 +68,19 @@ public class Slider {
 	}
 	public void setActualizado(java.sql.Timestamp actualizado) {
 		this.actualizado = actualizado;
-	}	
-	public int getEstados_idEstado() {
-		return estados_idEstado;
 	}
-	public void setEstados_idEstado(int estados_idEstado) {
-		this.estados_idEstado = estados_idEstado;
+	public Estados getEstados() {
+		return estados;
+	}
+	public void setEstados(Estados estados) {
+		this.estados = estados;
 	}
 	@Override
 	public String toString() {
 		return "Slider [idSlider=" + idSlider + ", productos_idProducto=" + productos_idProducto + ", imagenSlider="
-				+ imagenSlider + ", creado=" + creado + ", actualizado=" + actualizado +  ", estados_idEstado=" + estados_idEstado +"]";
+				+ imagenSlider + ", creado=" + creado + ", actualizado=" + actualizado + ", estados=" + estados + "]";
 	}
-
 	
-
 
 
 }

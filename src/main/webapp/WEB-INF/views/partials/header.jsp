@@ -29,35 +29,35 @@
 								href="${pageContext.request.contextPath}/">Categoria D</a></li>
 						</ul></li>
 				</ul>
-				<form class="d-flex">
-					<a href="${pageContext.request.contextPath}/login" class="btn btn-outline-light mx-2"> <i
-						class="bi bi-person"></i></a>
-					 <a href="${pageContext.request.contextPath}/carrito" class="btn btn-outline-light me-2"> <i
-						class="bi bi-cart"></i></a>
-						<!--  <div class="btn btn-outline-light me-2 dropdown">
-					    <i class="bi bi-cart"></i>
-					    <span class="badge bg-danger">${detallesCarrito.size()}</span>
-					    <div class="dropdown-menu dropdown-menu-end">
-					      <ul class="list-group">
-					        <c:forEach var="detalle" items="${detallesCarrito}">
-					          <li class="list-group-item">${detalle.nombreProducto} (x${detalle.cantidad})</li>
-					        </c:forEach>
-					      </ul>
-					      <div class="dropdown-divider"></div>
-					      <div class="d-flex justify-content-between align-items-center px-3">
-					        <span class="fw-bold">Total:</span>
-					        <span>$ ${total}</span>
-					      </div>
-					      <div class="d-flex justify-content-between align-items-center px-3">
-					        <span class="fw-bold">Subtotal:</span>
-					        <span>$ ${subtotal}</span>
-					      </div>
-					    </div>
-					  </div>-->
-					 <input class="form-control me-2" type="search"
-						placeholder="Buscar productos" aria-label="Buscar">
-					<button class="btn btn-outline-light" type="submit">Buscar</button>
-				</form>
+	<form class="d-flex" role="search">
+	
+	<% if (session.getAttribute("usuario") != null) { %>
+		<div class="dropdown me-2">
+			<button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+				<i class="bi bi-person"></i>
+			</button>
+			<ul class="dropdown-menu">
+				<li><a class="dropdown-item" href="${pageContext.request.contextPath}/perfil">Perfil</a></li>
+				<li><a class="dropdown-item" href="${pageContext.request.contextPath}/newPassword">Cambio Contraseña</a></li>
+				<li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Cerrar Sesión</a></li>
+			</ul>
+		</div>
+		<a href="${pageContext.request.contextPath}/carrito" class="btn btn-outline-light me-2">
+			<i class="bi bi-cart"></i>
+		</a>
+	<% } else { %>
+		<a href="${pageContext.request.contextPath}/login" class="btn btn-outline-light mx-2">
+			<i class="bi bi-person"></i>
+		</a>
+		<a href="${pageContext.request.contextPath}/carrito" class="btn btn-outline-light me-2">
+			<i class="bi bi-cart"></i>
+		</a>
+	<% } %>
+			
+    <input class="form-control me-2" type="search" placeholder="Buscar productos" aria-label="Buscar">
+    <button class="btn btn-outline-light" type="submit">Buscar</button>
+</form>
+
 			</div>
 		</div>
 	</nav>

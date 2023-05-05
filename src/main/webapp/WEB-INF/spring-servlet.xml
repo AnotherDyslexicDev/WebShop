@@ -65,6 +65,7 @@
 		<!-- annotated classes -->
 		<property name="annotatedClasses">
 			<list>
+				<value>BootCamp.WebShop.model.Estados</value>
 				<value>BootCamp.WebShop.model.Carrito</value>
 				<value>BootCamp.WebShop.model.Categoria</value>
 				<value>BootCamp.WebShop.model.DetalleCarrito</value>

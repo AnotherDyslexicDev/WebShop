@@ -5,6 +5,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,8 +19,9 @@ public class Categoria {
     private String descripcion;
     private java.sql.Timestamp creado;
     private java.sql.Timestamp actualizado;
+    @OneToOne
     @JoinColumn(name = "estados_idEstado")
-    private int estados_idEstado;
+    private Estados estados;
     
     // getters y setters
 }

@@ -20,14 +20,18 @@ public class UsuarioService {
 	}
 
 
-	public Usuario authenticate(String email, String password) throws AuthenticationException {
-	    Usuario usuario = usuarioDao.authenticate(email, password);
-
+	public Usuario authenticate(String email, String password)  {
+	    Usuario usuario = null;
+		try {
+			usuario = usuarioDao.authenticate(email, password);
+		} catch (AuthenticationException e) {
+			System.out.println(e.toString());
+		}
 	    if (usuario != null && usuario.getPassword().equals(password)) {
 	        return usuario;
 	    } else {
-	        throw new AuthenticationException("Correo electrónico o contraseña incorrectos.");
-	    }
+	    	return null;	        
+	    }	    
 	}
 
 

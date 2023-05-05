@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -25,13 +26,15 @@ public class Usuario {
     private java.sql.Timestamp actualizado;
     private String token;
     private java.sql.Timestamp setExpirationDate;
+    @OneToOne
     @JoinColumn(name = "roles_idRol")
-    private int roles_idRol;
+    private Rol roles;
+    @OneToOne
     @JoinColumn(name = "estados_idEstado")
-    private int estados_idEstado;
+    private Estados estados;
 	public Usuario(int idUsuario, String nombreUsuario, String email, String telefono, String password,
-			String direccion, Timestamp creado, Timestamp actualizado, String token,Timestamp setExpirationDate, int roles_idRol,
-			int estados_idEstado) {
+			String direccion, Timestamp creado, Timestamp actualizado, String token, Timestamp setExpirationDate,
+			Rol roles, Estados estados) {
 		super();
 		this.idUsuario = idUsuario;
 		this.nombreUsuario = nombreUsuario;
@@ -42,9 +45,9 @@ public class Usuario {
 		this.creado = creado;
 		this.actualizado = actualizado;
 		this.token = token;
-		this.setExpirationDate=setExpirationDate;
-		this.roles_idRol = roles_idRol;
-		this.estados_idEstado = estados_idEstado;
+		this.setExpirationDate = setExpirationDate;
+		this.roles = roles;
+		this.estados = estados;
 	}
 	public Usuario() {
 		super();
@@ -103,33 +106,32 @@ public class Usuario {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	
 	public java.sql.Timestamp getSetExpirationDate() {
 		return setExpirationDate;
 	}
 	public void setSetExpirationDate(java.sql.Timestamp setExpirationDate) {
 		this.setExpirationDate = setExpirationDate;
 	}
-	public int getRoles_idRol() {
-		return roles_idRol;
+	public Rol getRoles() {
+		return roles;
 	}
-	public void setRoles_idRol(int roles_idRol) {
-		this.roles_idRol = roles_idRol;
+	public void setRoles(Rol roles) {
+		this.roles = roles;
 	}
-	public int getEstados_idEstado() {
-		return estados_idEstado;
+	public Estados getEstados() {
+		return estados;
 	}
-	public void setEstados_idEstado(int estados_idEstado) {
-		this.estados_idEstado = estados_idEstado;
+	public void setEstados(Estados estados) {
+		this.estados = estados;
 	}
 	@Override
 	public String toString() {
 		return "Usuario [idUsuario=" + idUsuario + ", nombreUsuario=" + nombreUsuario + ", email=" + email
 				+ ", telefono=" + telefono + ", password=" + password + ", direccion=" + direccion + ", creado="
-				+ creado + ", actualizado=" + actualizado + ", token=" + token +", setExpirationDate=" + setExpirationDate + ", roles_idRol=" + roles_idRol
-				+ ", estados_idEstado=" + estados_idEstado + "]";
+				+ creado + ", actualizado=" + actualizado + ", token=" + token + ", setExpirationDate="
+				+ setExpirationDate + ", roles=" + roles + ", estados=" + estados + "]";
 	}
-
+	
     
     
 }

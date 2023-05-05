@@ -56,7 +56,7 @@
         <h5 class="card-title">${producto.nombreProducto}</h5>
         <p class="card-text">${producto.descripcion}</p>
         <p class="card-text"><strong>Precio: ${producto.precio}</strong></p>
-        <form method="post" action="CarritoController">
+        <form method="post" action="${pageContext.request.contextPath}/carrito/agregar">
           <input type="hidden" name="idProducto" value="${producto.idProducto}">
           <button type="submit" class="btn btn-primary">Agregar al carrito</button>
         </form>

@@ -17,5 +17,8 @@ public class ProductoDao {
 		// TODO Auto-generated method stub
 		return hiberneteTemplate.loadAll(Productos.class);
 	}
+	public Productos findById(Integer idProducto) {
+	    return hiberneteTemplate.get(Productos.class, idProducto);
+	}
 
 }

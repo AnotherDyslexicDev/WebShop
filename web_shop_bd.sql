@@ -1,18 +1,32 @@
+-- MySQL Workbench Forward Engineering
+
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
+-- Schema web_shop_bd
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema web_shop_bd
+-- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `web_shop_bd` DEFAULT CHARACTER SET utf8mb3 ;
 USE `web_shop_bd` ;
 
+-- -----------------------------------------------------
+-- Table `web_shop_bd`.`estados`
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `web_shop_bd`.`estados` (
   `idEstado` INT NOT NULL AUTO_INCREMENT,
   `nombreEstado` VARCHAR(45) NOT NULL,
   `creado` TIMESTAMP NOT NULL,
   `actualizado` TIMESTAMP NOT NULL,
   PRIMARY KEY (`idEstado`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+AUTO_INCREMENT = 5
+DEFAULT CHARACTER SET = utf8mb3;
+
 
 -- -----------------------------------------------------
 -- Table `web_shop_bd`.`roles`
@@ -28,11 +42,9 @@ CREATE TABLE IF NOT EXISTS `web_shop_bd`.`roles` (
   INDEX `fk_roles_estados1_idx` (`estados_idEstado` ASC) VISIBLE,
   CONSTRAINT `fk_roles_estados1`
     FOREIGN KEY (`estados_idEstado`)
-    REFERENCES `web_shop_bd`.`estados` (`idEstado`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `web_shop_bd`.`estados` (`idEstado`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 3
+AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -48,22 +60,21 @@ CREATE TABLE IF NOT EXISTS `web_shop_bd`.`usuario` (
   `direccion` VARCHAR(45) NOT NULL,
   `creado` TIMESTAMP NOT NULL,
   `actualizado` TIMESTAMP NOT NULL,
-  `token` VARCHAR(50),
-  `fechaExpiracionToken` TIMESTAMP,
+  `token` VARCHAR(50) NULL DEFAULT NULL,
   `roles_idRol` INT NOT NULL,
   `estados_idEstado` INT NOT NULL,
+  `setExpirationDate` DATETIME(6) NULL DEFAULT NULL,
   PRIMARY KEY (`idUsuario`),
   INDEX `fk_usuario_roles_idx` (`roles_idRol` ASC) VISIBLE,
   INDEX `fk_usuario_estados1_idx` (`estados_idEstado` ASC) VISIBLE,
-  CONSTRAINT `fk_usuario_roles`
-    FOREIGN KEY (`roles_idRol`)
-    REFERENCES `web_shop_bd`.`roles` (`idRol`),
   CONSTRAINT `fk_usuario_estados1`
     FOREIGN KEY (`estados_idEstado`)
-    REFERENCES `web_shop_bd`.`estados` (`idEstado`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `web_shop_bd`.`estados` (`idEstado`),
+  CONSTRAINT `fk_usuario_roles`
+    FOREIGN KEY (`roles_idRol`)
+    REFERENCES `web_shop_bd`.`roles` (`idRol`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -77,12 +88,20 @@ CREATE TABLE IF NOT EXISTS `web_shop_bd`.`carrito` (
   `creado` TIMESTAMP NOT NULL,
   `actualizado` TIMESTAMP NOT NULL,
   `usuario_idUsuario` INT NOT NULL,
+  `estados_idEstado` INT NOT NULL,
   PRIMARY KEY (`idCarrito`),
   INDEX `fk_carrito_usuario1_idx` (`usuario_idUsuario` ASC) VISIBLE,
+  INDEX `fk_carrito_estados1_idx` (`estados_idEstado` ASC) VISIBLE,
   CONSTRAINT `fk_carrito_usuario1`
     FOREIGN KEY (`usuario_idUsuario`)
-    REFERENCES `web_shop_bd`.`usuario` (`idUsuario`))
+    REFERENCES `web_shop_bd`.`usuario` (`idUsuario`),
+  CONSTRAINT `fk_carrito_estados1`
+    FOREIGN KEY (`estados_idEstado`)
+    REFERENCES `web_shop_bd`.`estados` (`idEstado`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -105,11 +124,9 @@ CREATE TABLE IF NOT EXISTS `web_shop_bd`.`categorias` (
     REFERENCES `web_shop_bd`.`categorias` (`idCategoria`),
   CONSTRAINT `fk_categorias_estados1`
     FOREIGN KEY (`estados_idEstado`)
-    REFERENCES `web_shop_bd`.`estados` (`idEstado`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `web_shop_bd`.`estados` (`idEstado`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 5
+AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -128,11 +145,9 @@ CREATE TABLE IF NOT EXISTS `web_shop_bd`.`proveedores` (
   INDEX `fk_proveedores_estados1_idx` (`estados_idEstado` ASC) VISIBLE,
   CONSTRAINT `fk_proveedores_estados1`
     FOREIGN KEY (`estados_idEstado`)
-    REFERENCES `web_shop_bd`.`estados` (`idEstado`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `web_shop_bd`.`estados` (`idEstado`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 2
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -166,19 +181,17 @@ CREATE TABLE IF NOT EXISTS `web_shop_bd`.`productos` (
   CONSTRAINT `fk_productos_categorias1`
     FOREIGN KEY (`categorias_idCategoria`)
     REFERENCES `web_shop_bd`.`categorias` (`idCategoria`),
+  CONSTRAINT `fk_productos_estados1`
+    FOREIGN KEY (`estados_idEstado`)
+    REFERENCES `web_shop_bd`.`estados` (`idEstado`),
   CONSTRAINT `fk_productos_proveedores1`
     FOREIGN KEY (`proveedores_idProveedor`)
     REFERENCES `web_shop_bd`.`proveedores` (`idProveedor`),
   CONSTRAINT `FKn28bgxwxwaudiupba729gsmp6`
     FOREIGN KEY (`proveedor_idProveedor`)
-    REFERENCES `web_shop_bd`.`proveedores` (`idProveedor`),
-  CONSTRAINT `fk_productos_estados1`
-    FOREIGN KEY (`estados_idEstado`)
-    REFERENCES `web_shop_bd`.`estados` (`idEstado`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `web_shop_bd`.`proveedores` (`idProveedor`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 4
+AUTO_INCREMENT = 7
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -191,9 +204,13 @@ CREATE TABLE IF NOT EXISTS `web_shop_bd`.`detallecarrito` (
   `actualizado` TIMESTAMP NOT NULL,
   `carrito_idCarrito` INT NOT NULL,
   `productos_idProducto` INT NOT NULL,
+  `cantidad` INT NOT NULL,
   PRIMARY KEY (`idDetalleCarrito`),
   INDEX `fk_detallecarrito_carrito1_idx` (`carrito_idCarrito` ASC) VISIBLE,
   INDEX `fk_detallecarrito_productos1_idx` (`productos_idProducto` ASC) VISIBLE,
+  CONSTRAINT `FK9mci6o811wdmo12ogv8f7oblv`
+    FOREIGN KEY (`productos_idProducto`)
+    REFERENCES `web_shop_bd`.`productos` (`idProducto`),
   CONSTRAINT `fk_detallecarrito_carrito1`
     FOREIGN KEY (`carrito_idCarrito`)
     REFERENCES `web_shop_bd`.`carrito` (`idCarrito`),
@@ -217,9 +234,7 @@ CREATE TABLE IF NOT EXISTS `web_shop_bd`.`formapago` (
   INDEX `fk_formapago_estados1_idx` (`estados_idEstado` ASC) VISIBLE,
   CONSTRAINT `fk_formapago_estados1`
     FOREIGN KEY (`estados_idEstado`)
-    REFERENCES `web_shop_bd`.`estados` (`idEstado`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `web_shop_bd`.`estados` (`idEstado`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
@@ -265,7 +280,10 @@ CREATE TABLE IF NOT EXISTS `web_shop_bd`.`detalleventa` (
     REFERENCES `web_shop_bd`.`productos` (`idProducto`),
   CONSTRAINT `fk_detalleventa_venta1`
     FOREIGN KEY (`venta_idVenta`)
-    REFERENCES `web_shop_bd`.`venta` (`idVenta`))
+    REFERENCES `web_shop_bd`.`venta` (`idVenta`),
+  CONSTRAINT `FKnv6k39bf2hg7g2qdul5ujtp7y`
+    FOREIGN KEY (`productos_idProducto`)
+    REFERENCES `web_shop_bd`.`productos` (`idProducto`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
@@ -283,69 +301,16 @@ CREATE TABLE IF NOT EXISTS `web_shop_bd`.`slider` (
   PRIMARY KEY (`idSlider`),
   INDEX `fk_slider_productos1_idx` (`productos_idProducto` ASC) VISIBLE,
   INDEX `fk_slider_estados1_idx` (`estados_idEstado` ASC) VISIBLE,
-  CONSTRAINT `fk_slider_productos1`
-    FOREIGN KEY (`productos_idProducto`)
-    REFERENCES `web_shop_bd`.`productos` (`idProducto`),
   CONSTRAINT `fk_slider_estados1`
     FOREIGN KEY (`estados_idEstado`)
-    REFERENCES `web_shop_bd`.`estados` (`idEstado`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `web_shop_bd`.`estados` (`idEstado`),
+  CONSTRAINT `fk_slider_productos1`
+    FOREIGN KEY (`productos_idProducto`)
+    REFERENCES `web_shop_bd`.`productos` (`idProducto`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 4
+AUTO_INCREMENT = 7
 DEFAULT CHARACTER SET = utf8mb3;
-INSERT INTO estados (nombreEstado, creado, actualizado) VALUES ('activo',CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
-INSERT INTO estados (nombreEstado, creado, actualizado) VALUES ('inactivo',CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
-INSERT INTO estados (nombreEstado, creado, actualizado) VALUES ('descontinuado',CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
-INSERT INTO estados (nombreEstado, creado, actualizado) VALUES ('eliminado',CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
--- Insertar rol "Administrador"
-INSERT INTO web_shop_bd.roles (nombreRol, descripcion, creado, actualizado,estados_idEstado)
-VALUES ('Administrador', 'Rol con permisos de administrador', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),1);
 
--- Insertar rol "Usuario"
-INSERT INTO web_shop_bd.roles (nombreRol, descripcion, creado, actualizado,estados_idEstado)
-VALUES ('Usuario', 'Rol para usuarios regulares', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),1);
-
-INSERT INTO `web_shop_bd`.`usuario` 
-(`nombreUsuario`, `email`, `telefono`, `password`, `direccion`, `creado`, `actualizado`, `roles_idRol`, `estados_idEstado`) 
-VALUES 
-('David Morales Palta', 'contacto@fullstackdavid.com', '+56989738297', 'password123', 'Calle Falsa 123',  CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 1, 1);
-
--- Insertar categoría raíz "Implementos deportivos"
-INSERT INTO `web_shop_bd`.`categorias` (`idCategoriaPadre`, `nombreCategoria`, `descripcion`,`estados_idEstado`, `creado`, `actualizado`)
-VALUES (NULL, 'Implementos deportivos', 'Implementos deportivos para diferentes actividades físicas',1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
-
--- Insertar subcategoría "Mancuernas"
-INSERT INTO `web_shop_bd`.`categorias` (`idCategoriaPadre`, `nombreCategoria`, `descripcion`,`estados_idEstado`, `creado`, `actualizado`)
-VALUES (1, 'Mancuernas', 'Mancuernas de diferentes pesos',1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
-
--- Insertar subcategoría "Yoga"
-INSERT INTO `web_shop_bd`.`categorias` (`idCategoriaPadre`, `nombreCategoria`, `descripcion`,`estados_idEstado`, `creado`, `actualizado`)
-VALUES (1, 'Yoga', 'Implementos para yoga',1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
-
--- Insertar subcategoría "Equipamiento de fitness"
-INSERT INTO `web_shop_bd`.`categorias` (`idCategoriaPadre`, `nombreCategoria`, `descripcion`,`estados_idEstado`, `creado`, `actualizado`)
-VALUES (1, 'Equipamiento de fitness', 'Aparatos para hacer ejercico',1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
--- Insert Proveedor
-INSERT INTO `web_shop_bd`.`proveedores` (`nombreProveedor`, `rutProveedor`, `direccionProveedor`, `telefonoProveedor`, `correoProveedor`,estados_idEstado)
-VALUES ('David Morales Palta', '15763620-0', 'Calle Falsa 123', '+56989738297', 'contacto@fullstackdavid.com',1);
-
--- insert productos
--- Insertar producto "Kit Yoga"
-INSERT INTO web_shop_bd.productos (nombreProducto, descripcion, precio, stock, creado, actualizado, imagen, categorias_idCategoria, proveedores_idProveedor, imagenSlider,estados_idEstado)
-VALUES ('Kit Yoga', 'Set de implementos para la práctica de Yoga', 25000, 10, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '/img/kit_yoga_400.webp', 3, 1, '/img/kit_yoga.webp',1);
-
--- Insertar producto "Kit Mancuernas"
-INSERT INTO web_shop_bd.productos (nombreProducto, descripcion, precio, stock, creado, actualizado, imagen, categorias_idCategoria, proveedores_idProveedor, imagenSlider,estados_idEstado)
-VALUES ('Kit Mancuernas', 'Set de mancuernas de diferentes pesos', 35000, 8, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '/img/kit_mancuernas_400.webp', 2, 1, '/img/kit_mancuernas.webp',1);
-
--- Insertar producto "Ab Wheel"
-INSERT INTO web_shop_bd.productos (nombreProducto, descripcion, precio, stock, creado, actualizado, imagen, categorias_idCategoria, proveedores_idProveedor, imagenSlider,estados_idEstado)
-VALUES ('Ab Wheel', 'Rueda de ejercicio para trabajar el abdomen', 15000, 15, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '/img/ab_wheel_400.webp', 4, 1, '/img/AB_Weel.webp',1);
-
-INSERT INTO web_shop_bd.slider (productos_idProducto,imagenSlider,creado,actualizado,estados_idEstado) VALUES (1,'/img/kit_yoga.webp', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),1);
-INSERT INTO web_shop_bd.slider (productos_idProducto,imagenSlider,creado,actualizado,estados_idEstado) VALUES (2,'/img/kit_mancuernas.webp', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),1);
-INSERT INTO web_shop_bd.slider (productos_idProducto,imagenSlider,creado,actualizado,estados_idEstado) VALUES (3,'/img/AB_Weel.webp', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),1);
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

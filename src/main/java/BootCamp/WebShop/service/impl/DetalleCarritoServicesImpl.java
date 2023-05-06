@@ -46,4 +46,17 @@ public class DetalleCarritoServicesImpl implements DetalleCarritoServices {
 		
 	}
 
+	@Override
+	public void updateDetalleCarrito(int idDetalleCarrito, int cantidad) {
+	    DetalleCarrito detalle = detalleCarritoDao.getDetalleCarritoById(idDetalleCarrito);
+	    if (detalle != null) {
+	        // Modifica la cantidad del detalle de carrito
+	        detalle.setCantidad(cantidad);
+	        //detalle.setPrecio(detalle.getProducto().getPrecio() * detalle.getCantidad());
+
+	        // Actualiza el detalle de carrito en la base de datos
+	        detalleCarritoDao.updateDetalleCarrito(detalle);
+	    }
+	}
+
 }

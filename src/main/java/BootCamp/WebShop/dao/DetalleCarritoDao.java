@@ -20,5 +20,18 @@ public class DetalleCarritoDao {
 		session.save(detalleCarrito);
 		return detalleCarrito;
 	}
+
+	public DetalleCarrito getDetalleCarritoById(int idDetalleCarrito) {
+		Session session = sessionFactory.getCurrentSession();
+		DetalleCarrito detalle = session.get(DetalleCarrito.class, idDetalleCarrito);
+		return detalle;
+	}
+
+	public void updateDetalleCarrito(DetalleCarrito detalle) {
+		Session session = sessionFactory.getCurrentSession();
+		session.update(detalle);
+	}
+
+
 }
 

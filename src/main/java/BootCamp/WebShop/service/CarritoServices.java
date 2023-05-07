@@ -11,4 +11,5 @@ public interface CarritoServices {
     public Carrito getCarritoById(Long idCarrito);
     public List<Carrito> getAllCarritos();
     public void deleteCarrito(Long idCarrito);
+	public void updateCarritoTotal(int total,int idCarrito);
 }

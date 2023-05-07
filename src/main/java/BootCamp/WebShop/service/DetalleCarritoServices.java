@@ -14,6 +14,6 @@ public interface DetalleCarritoServices {
     public List<DetalleCarrito> getAllDetallesCarrito();
     public List<DetalleCarrito> getDetallesCarritoByCarrito(Carrito carrito);
     public void deleteDetalleCarrito(Long idDetalleCarrito);
-	public void updateDetalleCarrito(int idDetalleCarrito,int cantidad);
+	public void updateDetalleCarrito(int idDetalleCarrito,int cantidad, int subTotal);
 }
 

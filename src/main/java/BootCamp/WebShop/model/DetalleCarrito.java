@@ -25,8 +25,9 @@ public class DetalleCarrito {
     @JoinColumn(name = "productos_idProducto")
     private Productos producto;
     private int cantidad;
+    private int subTotal;
 	public DetalleCarrito(int idDetalleCarrito, Timestamp creado, Timestamp actualizado, Carrito carrito,
-			Productos producto, int cantidad) {
+			Productos producto, int cantidad,int subTotal) {
 		super();
 		this.idDetalleCarrito = idDetalleCarrito;
 		this.creado = creado;
@@ -34,6 +35,7 @@ public class DetalleCarrito {
 		this.carrito = carrito;
 		this.producto = producto;
 		this.cantidad = cantidad;
+		this.subTotal=subTotal;
 	}
 	public DetalleCarrito() {
 		super();
@@ -74,10 +76,16 @@ public class DetalleCarrito {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
+	public int getSubTotal() {
+		return subTotal;
+	}
+	public void setSubTotal(int subTotal) {
+		this.subTotal = subTotal;
+	}
 	@Override
 	public String toString() {
 		return "DetalleCarrito [idDetalleCarrito=" + idDetalleCarrito + ", creado=" + creado + ", actualizado="
-				+ actualizado + ", carrito=" + carrito + ", producto=" + producto + ", cantidad=" + cantidad + "]";
+				+ actualizado + ", carrito=" + carrito + ", producto=" + producto + ", cantidad=" + cantidad + ", subTotal=" + subTotal +"]";
 	}
 	
     

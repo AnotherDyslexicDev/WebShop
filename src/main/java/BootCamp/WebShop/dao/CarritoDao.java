@@ -27,5 +27,12 @@ public class CarritoDao {
 		session.save(carrito);
 	}
 
+	public void updateCarritoTotal(int total, int idCarrito) {
+	    Session session = sessionFactory.getCurrentSession();
+	    Carrito carrito = session.get(Carrito.class, idCarrito);
+	    carrito.setTotal(total);
+	    session.update(carrito);
+	}
+
 }
 

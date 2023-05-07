@@ -82,8 +82,7 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- Table `web_shop_bd`.`carrito`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `web_shop_bd`.`carrito` (
-  `idCarrito` INT NOT NULL AUTO_INCREMENT,
-  `subTotal` INT NOT NULL,
+  `idCarrito` INT NOT NULL AUTO_INCREMENT,  
   `total` INT NOT NULL,
   `creado` TIMESTAMP NOT NULL,
   `actualizado` TIMESTAMP NOT NULL,
@@ -205,6 +204,7 @@ CREATE TABLE IF NOT EXISTS `web_shop_bd`.`detallecarrito` (
   `carrito_idCarrito` INT NOT NULL,
   `productos_idProducto` INT NOT NULL,
   `cantidad` INT NOT NULL,
+  `subTotal` INT NOT NULL,
   PRIMARY KEY (`idDetalleCarrito`),
   INDEX `fk_detallecarrito_carrito1_idx` (`carrito_idCarrito` ASC) VISIBLE,
   INDEX `fk_detallecarrito_productos1_idx` (`productos_idProducto` ASC) VISIBLE,
@@ -310,6 +310,8 @@ CREATE TABLE IF NOT EXISTS `web_shop_bd`.`slider` (
 ENGINE = InnoDB
 AUTO_INCREMENT = 7
 DEFAULT CHARACTER SET = utf8mb3;
+-- Inserts --
+
 INSERT INTO estados (nombreEstado, creado, actualizado) VALUES ('activo',CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
 INSERT INTO estados (nombreEstado, creado, actualizado) VALUES ('inactivo',CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
 INSERT INTO estados (nombreEstado, creado, actualizado) VALUES ('descontinuado',CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
@@ -317,7 +319,7 @@ INSERT INTO estados (nombreEstado, creado, actualizado) VALUES ('eliminado',CURR
 -- Insertar rol "Administrador"
 INSERT INTO web_shop_bd.roles (nombreRol, descripcion, creado, actualizado,estados_idEstado)
 VALUES ('Administrador', 'Rol con permisos de administrador', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),1);
-
+                                                     
 -- Insertar rol "Usuario"
 INSERT INTO web_shop_bd.roles (nombreRol, descripcion, creado, actualizado,estados_idEstado)
 VALUES ('Usuario', 'Rol para usuarios regulares', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),1);
@@ -362,6 +364,7 @@ VALUES ('Ab Wheel', 'Rueda de ejercicio para trabajar el abdomen', 15000, 15, CU
 INSERT INTO web_shop_bd.slider (productos_idProducto,imagenSlider,creado,actualizado,estados_idEstado) VALUES (1,'/img/kit_yoga.webp', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),1);
 INSERT INTO web_shop_bd.slider (productos_idProducto,imagenSlider,creado,actualizado,estados_idEstado) VALUES (2,'/img/kit_mancuernas.webp', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),1);
 INSERT INTO web_shop_bd.slider (productos_idProducto,imagenSlider,creado,actualizado,estados_idEstado) VALUES (3,'/img/AB_Weel.webp', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),1);
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

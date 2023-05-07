@@ -36,14 +36,16 @@ public class CarritoController {
     @RequestMapping(value = "/ver", method = RequestMethod.GET)
     public ModelAndView verCarrito(HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
+
         Carrito carrito = (Carrito) session.getAttribute("carrito");
+
         if (carrito == null || carrito.getDetallesCarrito().isEmpty()) {
             modelAndView.addObject("mensaje", "Tu carrito está vacío");
-            modelAndView.setViewName("carrito_vacio");
-            return modelAndView;
+        } else {
+            modelAndView.addObject("carrito", carrito);
         }
-        modelAndView.addObject("carrito", carrito);
-        modelAndView.setViewName("carrito");
+
+        modelAndView.setViewName("/carrito");
         return modelAndView;
     }
 
@@ -77,8 +79,7 @@ public class CarritoController {
             carrito = new Carrito();
             carrito.setCreado(new Timestamp(System.currentTimeMillis()));
             carrito.setActualizado(new Timestamp(System.currentTimeMillis()));
-            carrito.setDetallesCarrito(null);
-            carrito.setSubTotal(producto.getPrecio());
+            carrito.setDetallesCarrito(null);            
             carrito.setTotal(producto.getPrecio());
             carrito.setUsuario(usuario);
             carrito.setEstados(estado);
@@ -99,27 +100,32 @@ public class CarritoController {
             detalleCarrito.setCarrito(carrito); // El carrito obtenido anteriormente
             detalleCarrito.setProducto(producto); // El producto que se va a agregar
             detalleCarrito.setCantidad(1); // Cantidad fija por ahora
-
-            // Guardamos el detalle de carrito en la sesión de HttpSession
-            HttpSession httpSession = request.getSession();
+            detalleCarrito.setSubTotal(producto.getPrecio());            
+            HttpSession httpSession = request.getSession();// Guardamos el detalle de carrito en la sesión de HttpSession
             httpSession.setAttribute("detalleCarrito", detalleCarrito);
             detallesActualizados.add(detalleCarrito);
             carrito.setDetallesCarrito((List<DetalleCarrito>)detallesActualizados);//lo que quiero es ir agregando detalles de carrito al carrito asociado
             DetalleCarrito detalleCarritoGuardado = detalleCarritoServices.saveDetalleCarrito(detalleCarrito);
-        }else {
-        	
+        }else {        	
         	List<DetalleCarrito> detallesCarrito = carrito.getDetallesCarrito();
         	boolean productoEncontrado = false;
         	for (DetalleCarrito detalle : detallesCarrito) {
         	    if (detalle.getProducto().getIdProducto() == idProducto) {
         	        // Si el producto ya está en el carrito, incrementamos la cantidad
         	        detalle.setCantidad(detalle.getCantidad() + 1);
-        	        detalleCarritoServices.updateDetalleCarrito(detalle.getIdDetalleCarrito(), detalle.getCantidad());
+        	        detalle.setSubTotal((detalle.getCantidad())* (detalle.getProducto().getPrecio()));        	        
+        	        detalleCarritoServices.updateDetalleCarrito(detalle.getIdDetalleCarrito(), detalle.getCantidad(), detalle.getSubTotal());
+            	    int total=0;
+            	    for(DetalleCarrito detallesCarritos: detallesCarrito ) {
+            	    	total=total+detallesCarritos.getSubTotal();
+            	    	carrito.setTotal(total);
+            	    }
+            	    //falta agregar la fecha y hora de la modificacion en el carrito
+            	    carritoServices.updateCarritoTotal(carrito.getTotal(),carrito.getIdCarrito());
         	        productoEncontrado = true;
         	        break;
         	    }
         	}
-
         	if (!productoEncontrado) {
         	    // Si el producto no está en el carrito, creamos un nuevo detalle y lo agregamos a la lista
         	    DetalleCarrito nuevoDetalle = new DetalleCarrito();
@@ -128,16 +134,18 @@ public class CarritoController {
         	    nuevoDetalle.setCarrito(carrito); // El carrito obtenido anteriormente
         	    nuevoDetalle.setProducto(producto); // El producto que se va a agregar
         	    nuevoDetalle.setCantidad(1); // Cantidad fija por ahora
-
+        	    nuevoDetalle.setSubTotal(producto.getPrecio());        	    
+        	    //carrito.setTotal(carrito.getSubTotal()+nuevoDetalle.getProducto().getPrecio());
         	    detallesCarrito.add(nuevoDetalle);
         	    carrito.setDetallesCarrito(detallesCarrito);
-
+        	    int total=0;
+        	    for(DetalleCarrito detallesCarritos: detallesCarrito ) {
+        	    	total=total+detallesCarritos.getSubTotal();
+        	    	carrito.setTotal(total);
+        	    }
+        	    carritoServices.updateCarritoTotal(carrito.getTotal(),carrito.getIdCarrito());
         	    DetalleCarrito detalleCarritoGuardado = detalleCarritoServices.saveDetalleCarrito(nuevoDetalle);
-        	}
-                    
-                    
-                
-            
+        	}           
         }
 
         

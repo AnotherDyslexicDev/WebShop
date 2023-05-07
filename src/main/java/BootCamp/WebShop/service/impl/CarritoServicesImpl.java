@@ -41,4 +41,10 @@ public class CarritoServicesImpl implements CarritoServices {
 		
 	}
 
+	@Override
+	public void updateCarritoTotal(int total,int idCarrito) {
+		carritoDao.updateCarritoTotal(total,idCarrito);
+		
+	}
+
 }

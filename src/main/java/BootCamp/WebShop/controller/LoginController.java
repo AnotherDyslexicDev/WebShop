@@ -54,11 +54,12 @@ public class LoginController {
           java.sql.Timestamp updateTimestamp = java.sql.Timestamp.valueOf(update);
           authUsuario.setToken(token);
           authUsuario.setActualizado(updateTimestamp);
-          authUsuario.setSetExpirationDate(expirationDate);      
+          authUsuario.setSetExpirationDate(expirationDate);          
           
         }
         session.setAttribute("usuario", authUsuario);
-        //authUsuario= usuarioService.updateUsuarioToken(authUsuario); no funciona pero ya me rendi por hoy
+        Usuario userToken = (Usuario) session.getAttribute("usuario");
+        authUsuario= usuarioService.updateUsuarioToken(userToken); 
         return new ModelAndView("redirect:/index");
       } else {
         ModelAndView modelAndView = new ModelAndView();

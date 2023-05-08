@@ -244,8 +244,7 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- Table `web_shop_bd`.`venta`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `web_shop_bd`.`venta` (
-  `idVenta` INT NOT NULL AUTO_INCREMENT,
-  `subTotalVenta` INT NOT NULL,
+  `idVenta` INT NOT NULL AUTO_INCREMENT, 
   `totalVenta` INT NOT NULL,
   `creado` TIMESTAMP NOT NULL,
   `actualizado` TIMESTAMP NOT NULL,
@@ -273,6 +272,7 @@ CREATE TABLE IF NOT EXISTS `web_shop_bd`.`detalleventa` (
   `actualizado` TIMESTAMP NOT NULL,
   `venta_idVenta` INT NOT NULL,
   `productos_idProducto` INT NOT NULL,
+   `subTotalVenta` INT NOT NULL,
   PRIMARY KEY (`idDetalleVenta`),
   INDEX `fk_detalleventa_venta1_idx` (`venta_idVenta` ASC) VISIBLE,
   INDEX `fk_detalleventa_productos1_idx` (`productos_idProducto` ASC) VISIBLE,

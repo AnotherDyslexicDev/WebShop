@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,28 +44,25 @@ public class UsuarioDao {
 	}
 
 	public Usuario updateUsuarioToken(Usuario usuario) {
-	   
-	    Usuario usuarioActualizado = null;
+	    Session session ;
+	    session =	sessionFactory.openSession();
+	    Transaction transaction = null;
+
 	    try {
-	    	Session session = sessionFactory.getCurrentSession();
-	        // Cargar el registro existente desde la base de datos
-	        usuarioActualizado = session.load(Usuario.class, usuario.getIdUsuario());
-	        
-	        // Actualizar los campos necesarios
-	        usuarioActualizado.setToken(usuario.getToken());
-	        usuarioActualizado.setActualizado(usuario.getActualizado());
-	        usuarioActualizado.setSetExpirationDate(usuario.getSetExpirationDate());
-	        
-	        // Guardar el registro actualizado en la sesión
-	        session.update(usuarioActualizado);
-	        
-	        // Realizar un commit de la transacción
-	        session.getTransaction().commit();
+	        transaction = session.beginTransaction();
+	        // guardar la entidad en la base de datos
+	        session.update(usuario);
+	        transaction.commit();
+	        return usuario;
 	    } catch (Exception e) {
-	        // Manejar cualquier excepción que ocurra
-	        System.out.println(e.toString());
+	        if (transaction != null) {
+	            transaction.rollback();
+	        }
+	        e.printStackTrace();
+	    } finally {
+	        session.close();
 	    }
-	    return usuarioActualizado;
+	    return null; // si ocurre un error, devuelve null
 	}
 
 

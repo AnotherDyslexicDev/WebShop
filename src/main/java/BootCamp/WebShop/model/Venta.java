@@ -8,9 +8,7 @@ public class Venta {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idVenta;
-    
-    private int subTotalVenta;
+    private int idVenta;   
     
     private int totalVenta;
     

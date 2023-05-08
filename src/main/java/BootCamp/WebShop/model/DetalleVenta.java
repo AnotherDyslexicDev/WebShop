@@ -15,6 +15,7 @@ public class DetalleVenta {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private int idDetalleVenta;
+private int subTotalVenta;
 private java.sql.Timestamp creado;
 private java.sql.Timestamp actualizado;
 	@ManyToOne

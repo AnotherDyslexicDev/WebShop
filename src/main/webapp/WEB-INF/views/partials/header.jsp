@@ -49,7 +49,7 @@
 		<a href="${pageContext.request.contextPath}/login" class="btn btn-outline-light mx-2">
 			<i class="bi bi-person"></i>
 		</a>
-		<a href="${pageContext.request.contextPath}/carrito" class="btn btn-outline-light me-2">
+		<a href="${pageContext.request.contextPath}/carrito/ver" class="btn btn-outline-light me-2">
 			<i class="bi bi-cart"></i>
 		</a>
 	<% } %>

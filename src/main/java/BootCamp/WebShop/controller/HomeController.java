@@ -11,6 +11,8 @@ import BootCamp.WebShop.model.Slider;
 import BootCamp.WebShop.service.SliderServices;
 import BootCamp.WebShop.model.Productos;
 import BootCamp.WebShop.model.Usuario;
+import BootCamp.WebShop.model.Carrito;
+import BootCamp.WebShop.model.DetalleCarrito;
 import BootCamp.WebShop.service.ProductoServices;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,7 +33,11 @@ public class HomeController {
         modelAndView.addObject("sliders", sliders);
         modelAndView.addObject("productos", productos);
         Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Carrito carrito = (Carrito) session.getAttribute("carrito");
+        DetalleCarrito detalleCarrito = (DetalleCarrito) session.getAttribute("detalleCarrito");
         modelAndView.addObject("usuario", usuario != null ? usuario : null); // si la sesión es nula, se inicializa usuario en null
+        modelAndView.addObject("carrito", carrito != null ? carrito : null); // si la sesión es nula, se inicializa Carrito en null
+        modelAndView.addObject("detalleCarrito", detalleCarrito != null ? detalleCarrito : null); // si la sesión es nula, se inicializa detalleCarrito en null
         return modelAndView;
     }
 }

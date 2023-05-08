@@ -15,10 +15,12 @@ import BootCamp.WebShop.model.Productos;
 import BootCamp.WebShop.model.Carrito;
 import BootCamp.WebShop.model.DetalleCarrito;
 import BootCamp.WebShop.model.Estados;
+import BootCamp.WebShop.model.FormaPago;
 import BootCamp.WebShop.model.Usuario;
 import BootCamp.WebShop.service.CarritoServices;
 import BootCamp.WebShop.service.DetalleCarritoServices;
 import BootCamp.WebShop.service.ProductoServices;
+import BootCamp.WebShop.service.FormaPagoServices;
 
 @Controller
 @RequestMapping("/carrito")
@@ -32,7 +34,9 @@ public class CarritoController {
 
     @Autowired
     private DetalleCarritoServices detalleCarritoServices;
-
+    @Autowired
+    private FormaPagoServices  formaPagoServices;
+    
     @RequestMapping(value = "/ver", method = RequestMethod.GET)
     public ModelAndView verCarrito(HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
@@ -42,10 +46,13 @@ public class CarritoController {
         if (carrito == null || carrito.getDetallesCarrito().isEmpty()) {
             modelAndView.addObject("mensaje", "Tu carrito está vacío");
         } else {
+        	List<FormaPago> formasdePago= new ArrayList<FormaPago>();
+        	formasdePago=formasPago();
+        	modelAndView.addObject("formasPago", formasdePago);
             modelAndView.addObject("carrito", carrito);
         }
 
-        modelAndView.setViewName("/carrito");
+        modelAndView.setViewName("carrito");
         return modelAndView;
     }
 
@@ -155,6 +162,12 @@ public class CarritoController {
         
         modelAndView.setViewName("redirect:/index");
         return modelAndView;
+    }
+    
+    public List<FormaPago> formasPago(){
+        List<FormaPago> formasPago= new ArrayList<FormaPago>();		
+		formasPago = formaPagoServices.getAllFormasPago();	
+        return formasPago;
     }
 
     /*@RequestMapping(value = "/eliminar/{idDetalle}", method = RequestMethod.GET)

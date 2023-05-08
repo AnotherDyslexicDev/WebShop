@@ -227,6 +227,7 @@ DEFAULT CHARACTER SET = utf8mb3;
 CREATE TABLE IF NOT EXISTS `web_shop_bd`.`formapago` (
   `idFormaPago` INT NOT NULL AUTO_INCREMENT,
   `nombreFormaPago` VARCHAR(45) NOT NULL,
+  `imagenFormaPago` VARCHAR(70) NOT NULL,
   `creada` TIMESTAMP NOT NULL,
   `actualizada` TIMESTAMP NOT NULL,
   `estados_idEstado` INT NOT NULL,
@@ -364,8 +365,27 @@ VALUES ('Ab Wheel', 'Rueda de ejercicio para trabajar el abdomen', 15000, 15, CU
 INSERT INTO web_shop_bd.slider (productos_idProducto,imagenSlider,creado,actualizado,estados_idEstado) VALUES (1,'/img/kit_yoga.webp', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),1);
 INSERT INTO web_shop_bd.slider (productos_idProducto,imagenSlider,creado,actualizado,estados_idEstado) VALUES (2,'/img/kit_mancuernas.webp', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),1);
 INSERT INTO web_shop_bd.slider (productos_idProducto,imagenSlider,creado,actualizado,estados_idEstado) VALUES (3,'/img/AB_Weel.webp', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),1);
+INSERT INTO `formapago` (`nombreFormaPago`,`imagenFormaPago`, `creada`, `actualizada`, `estados_idEstado`)
+VALUES
 
-
+('Tarjeta de Debito','/img/debito.webp', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),1),
+('Tarjeta de crédito','/img/credito.webp', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),1),
+('Tarjeta MasterPlop', '/img/masterplop.webp',CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),1),
+('PayPal','/img/paypal.webp', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),1);
+/* resetear IDs
+SET FOREIGN_KEY_CHECKS=0;
+truncate estados;
+truncate roles;
+truncate usuario;
+truncate categorias;
+truncate proveedores;
+truncate productos;
+truncate slider;
+truncate detallecarrito;
+truncate carrito;
+truncate formapago;
+SET FOREIGN_KEY_CHECKS=1;
+*/
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

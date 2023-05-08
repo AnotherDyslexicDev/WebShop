@@ -49,12 +49,16 @@ public class LoginController {
         if (isRememberMe) {
           String token = generarToken();
           LocalDateTime expiration = LocalDateTime.now().plusDays(30);
+          LocalDateTime update = LocalDateTime.now();
           java.sql.Timestamp expirationDate = java.sql.Timestamp.valueOf(expiration);
+          java.sql.Timestamp updateTimestamp = java.sql.Timestamp.valueOf(update);
           authUsuario.setToken(token);
-          authUsuario.setSetExpirationDate(expirationDate);
-          usuarioService.updateUsuario(authUsuario);
+          authUsuario.setActualizado(updateTimestamp);
+          authUsuario.setSetExpirationDate(expirationDate);      
+          
         }
         session.setAttribute("usuario", authUsuario);
+        //authUsuario= usuarioService.updateUsuarioToken(authUsuario); no funciona pero ya me rendi por hoy
         return new ModelAndView("redirect:/index");
       } else {
         ModelAndView modelAndView = new ModelAndView();

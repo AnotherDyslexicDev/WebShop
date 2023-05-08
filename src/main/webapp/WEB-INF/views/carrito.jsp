@@ -30,7 +30,7 @@
 				<div>${mensaje}</div>
 			</c:if>
 			<c:if test="${mensaje == null}">
-				<table class="table table-striped-columns">
+			<table class="table table-striped-columns">
 					<thead>
 						<tr>
 							<th>Producto</th>
@@ -50,12 +50,38 @@
 							</tr>
 							
 						</c:forEach>
-						<tr><td></td><td></td><td></td><td><h3>Total</h3></td></tr>
-						<tr><td></td><td></td><td></td><td>${carrito.getTotal()}</td></tr>
+						<tr><td colspan="3"></td><td><h3>Total</h3></td></tr>
+						<tr><td colspan="3"></td><td>${carrito.getTotal()}</td></tr>
 					</tbody>
 				</table>
+				</div>
+				<div class="col-12 d-flex justify-content-end mb-5">
+				        <form method="post" action="procesar-pago">
+			  			<div class="form-group col-12">
+						    <div class="row">
+						    <c:forEach items="${formasPago}" var="formaPago">
+						    
+						      <div class="col-12 col-md-3 class="d-flex justify-content-center"">
+						        <input type="radio" name="formaPago" value="${formaPago.getIdFormaPago()}" required>
+						        <img class="img-fluid" src="${pageContext.request.contextPath}${formaPago.getImagenFormaPago()}" alt="${formaPago.getNombreFormaPago()}">
+						        <span>${formaPago.getNombreFormaPago()}</span>
+						      </div>
+						    </c:forEach>
+						    </div>
+						  </div>
+						  <hr>
+						  <div class="col-sm-12 d-grid gap-2 d-md-flex justify-content-md-end">
+						  	<label class="fs-4">Total : ${carrito.getTotal()}</label>
+						  	<button  class="btn btn-primary" type="submit">Procesar pago</button>
+						  </div>
+						</form>
+
+				</div>
 			</c:if>
-		</div>
+		
+		
+			
+		
 		<!-- Footer -->
 		<footer class="bg-light text-center text-lg-start">
 		<div class="container p-4">

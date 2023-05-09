@@ -26,5 +26,74 @@ private java.sql.Timestamp actualizado;
 	@JoinColumn(name = "productos_idProducto")
 	private Productos producto;
 
-	// getters y setters
+	public DetalleVenta(int idDetalleVenta, int subTotalVenta, Timestamp creado, Timestamp actualizado, Venta venta,
+			Productos producto) {
+		super();
+		this.idDetalleVenta = idDetalleVenta;
+		this.subTotalVenta = subTotalVenta;
+		this.creado = creado;
+		this.actualizado = actualizado;
+		this.venta = venta;
+		this.producto = producto;
+	}
+
+	public DetalleVenta() {
+		super();
+	}
+
+	public int getIdDetalleVenta() {
+		return idDetalleVenta;
+	}
+
+	public void setIdDetalleVenta(int idDetalleVenta) {
+		this.idDetalleVenta = idDetalleVenta;
+	}
+
+	public int getSubTotalVenta() {
+		return subTotalVenta;
+	}
+
+	public void setSubTotalVenta(int subTotalVenta) {
+		this.subTotalVenta = subTotalVenta;
+	}
+
+	public java.sql.Timestamp getCreado() {
+		return creado;
+	}
+
+	public void setCreado(java.sql.Timestamp creado) {
+		this.creado = creado;
+	}
+
+	public java.sql.Timestamp getActualizado() {
+		return actualizado;
+	}
+
+	public void setActualizado(java.sql.Timestamp actualizado) {
+		this.actualizado = actualizado;
+	}
+
+	public Venta getVenta() {
+		return venta;
+	}
+
+	public void setVenta(Venta venta) {
+		this.venta = venta;
+	}
+
+	public Productos getProducto() {
+		return producto;
+	}
+
+	public void setProducto(Productos producto) {
+		this.producto = producto;
+	}
+
+	@Override
+	public String toString() {
+		return "DetalleVenta [idDetalleVenta=" + idDetalleVenta + ", subTotalVenta=" + subTotalVenta + ", creado="
+				+ creado + ", actualizado=" + actualizado + ", venta=" + venta + ", producto=" + producto + "]";
+	}
+
+	
 }

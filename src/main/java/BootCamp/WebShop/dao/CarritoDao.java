@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import BootCamp.WebShop.model.Carrito;
+import BootCamp.WebShop.model.Estados;
 
 @Component
 public class CarritoDao {
@@ -31,6 +32,14 @@ public class CarritoDao {
 	    Session session = sessionFactory.getCurrentSession();
 	    Carrito carrito = session.get(Carrito.class, idCarrito);
 	    carrito.setTotal(total);
+	    session.update(carrito);
+	}
+
+	public void actualizarEstado(int idEstado, int idCarrito) {
+	    Session session = sessionFactory.getCurrentSession();
+	    Carrito carrito = session.get(Carrito.class, idCarrito);
+	    Estados estado = session.get(Estados.class, idEstado);
+	    carrito.setEstados(estado);
 	    session.update(carrito);
 	}
 

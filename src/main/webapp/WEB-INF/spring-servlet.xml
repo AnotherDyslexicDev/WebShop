@@ -24,6 +24,7 @@
 	<mvc:resources mapping="/img/**" location="/resources/static/img/" />
 	<mvc:resources mapping="/img/**.webp" location="/resources/static/img/" />
 	<mvc:resources mapping="/js/**" location="/resources/static/js/" />
+	<mvc:resources mapping="/css/**" location="/resources/static/css/" />
 
 	<!-- View Resolver -->
 	<bean

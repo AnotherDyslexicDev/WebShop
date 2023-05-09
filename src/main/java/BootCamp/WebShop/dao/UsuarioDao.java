@@ -1,6 +1,9 @@
 package BootCamp.WebShop.dao;
 import java.sql.Timestamp;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.security.sasl.AuthenticationException;
 import javax.transaction.Transactional;
 import javax.servlet.http.HttpServletRequest;
@@ -42,28 +45,21 @@ public class UsuarioDao {
 
 	    return usuario;
 	}
-
-	public Usuario updateUsuarioToken(Usuario usuario) {
-	    Session session ;
-	    session =	sessionFactory.openSession();
-	    Transaction transaction = null;
-
-	    try {
-	        transaction = session.beginTransaction();
-	        // guardar la entidad en la base de datos
-	        session.update(usuario);
-	        transaction.commit();
-	        return usuario;
-	    } catch (Exception e) {
-	        if (transaction != null) {
-	            transaction.rollback();
-	        }
-	        e.printStackTrace();
-	    } finally {
-	        session.close();
-	    }
-	    return null; // si ocurre un error, devuelve null
-	}
+	@PersistenceContext
+	private EntityManager entityManager;
+    public Usuario updateUsuarioToken(Usuario usuario) {
+        try {
+            Usuario usuarioExistente = entityManager.find(Usuario.class, usuario.getIdUsuario());
+            usuarioExistente.setActualizado(usuario.getActualizado());
+            usuarioExistente.setToken(usuario.getToken());
+            usuarioExistente.setSetExpirationDate(usuario.getSetExpirationDate());
+            entityManager.merge(usuarioExistente);
+            return usuarioExistente;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 

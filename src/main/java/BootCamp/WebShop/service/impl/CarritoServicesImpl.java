@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import BootCamp.WebShop.dao.CarritoDao;
 import BootCamp.WebShop.model.Carrito;
+import BootCamp.WebShop.model.Estados;
 import BootCamp.WebShop.service.CarritoServices;
 
 @Service
@@ -44,6 +45,13 @@ public class CarritoServicesImpl implements CarritoServices {
 	@Override
 	public void updateCarritoTotal(int total,int idCarrito) {
 		carritoDao.updateCarritoTotal(total,idCarrito);
+		
+	}
+
+	@Override
+	public void actualizarEstado(int idEstado ,int idCarrito){
+		
+		carritoDao.actualizarEstado(idEstado, idCarrito);
 		
 	}
 

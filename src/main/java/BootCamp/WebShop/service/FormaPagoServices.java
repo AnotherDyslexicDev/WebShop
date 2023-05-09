@@ -7,15 +7,21 @@ import org.springframework.stereotype.Service;
 import BootCamp.WebShop.dao.FormaPagoDao;
 import BootCamp.WebShop.model.FormaPago;
 
-
-@Component
 @Service
 public class FormaPagoServices {
 	@Autowired
-	FormaPagoDao formaPagoDao;
-	public  List<FormaPago> getAllFormasPago() {
-		List<FormaPago> listaFormaPago = formaPagoDao.getAllFormasPago();
-		return listaFormaPago;
+	private FormaPagoDao formaPagoDao;
+
+	public List<FormaPago> getAllFormasPago() {
+		return formaPagoDao.getAllFormasPago();
 	}
 
+	public FormaPago findById(Long idFormaPago) {
+		FormaPago formaPago = formaPagoDao.findById(idFormaPago);
+		if (formaPago == null) {
+			throw new IllegalArgumentException("El id de forma de pago no existe en la base de datos.");
+		}
+		return formaPago;
+	}
 }
+

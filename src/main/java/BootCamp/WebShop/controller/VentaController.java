@@ -14,24 +14,29 @@ import org.springframework.web.servlet.ModelAndView;
 import BootCamp.WebShop.model.Carrito;
 import BootCamp.WebShop.model.DetalleCarrito;
 import BootCamp.WebShop.model.DetalleVenta;
+import BootCamp.WebShop.model.Estados;
 import BootCamp.WebShop.model.FormaPago;
 import BootCamp.WebShop.model.Usuario;
 import BootCamp.WebShop.model.Venta;
 import BootCamp.WebShop.service.CarritoServices;
 import BootCamp.WebShop.service.FormaPagoServices;
+import BootCamp.WebShop.service.VentaServices;
 
 @RestController
 @RequestMapping("/venta")
 public class VentaController {
 	@Autowired
 	FormaPagoServices formaPagoService;
-
-	
+	@Autowired
+    private CarritoServices carritoService;
+	@Autowired
+    private VentaServices ventaServices;
 
 	@RequestMapping(value = "/procesaPago", method = RequestMethod.POST)
 	public ModelAndView procesaPago(HttpServletRequest request, HttpSession session) {
 	   ModelAndView modelAndView = new ModelAndView();
-	    Long idFormaPago = Long.parseLong(request.getParameter("idFormaPago"));
+	    Long idFormaPago =(long) 1;
+	     idFormaPago = Long.parseLong(request.getParameter("idFormaPago"));
 	    
 	    
 	    // Buscamos la forma de pago seleccionada en la base de datos
@@ -57,6 +62,8 @@ public class VentaController {
 	        venta.setTotalVenta(carrito.getTotal());
 	        venta.setUsuario(carrito.getUsuario());
 	        venta.setFormaPago(formaPago);
+	        
+	        ventaServices.addVenta(venta);
 	        List<DetalleCarrito> detallesCarrito = carrito.getDetallesCarrito();
 	        DetalleVenta detalleVenta;
 	        for (DetalleCarrito detalle : detallesCarrito) {
@@ -67,23 +74,41 @@ public class VentaController {
 	            detalleVenta.setVenta(venta);
 	            detalleVenta.setProducto(detalle.getProducto());
 	        } 
-	        CarritoServices carritoService = null  ;
-			carritoService.actualizarEstado(carrito.getIdCarrito(), 2); // actualiza el estado del carrito a inactivo
+	      
+	        Estados estado = null;
+	        List<Estados> estados = (List<Estados>) session.getAttribute("estados");
+	        for (Estados estadoID: estados) {
+	            if (estadoID.getNombreEstado().equals("inactivo")) {
+	                estado = estadoID;
+	            }
+	        }
+	        if (estado != null) {
+	            System.out.println("El estado es: " + estado.getNombreEstado()); // Imprime el valor del estado
+	            carritoService.actualizarEstado(carrito.getIdCarrito(), estado); // actualiza el estado del carrito a inactivo
+	        } else {
+	            System.out.println("No se encontró el estado inactivo en la lista de estados"); // Imprime si no se encontró el estado inactivo
+	        }
 	        session.setAttribute("carrito", null);
 	        session.setAttribute("detalleCarrito", null);
 	        // Configuramos el mensaje de éxito y redireccionamos a la vista de éxito
+	        
 	        modelAndView.addObject("mensaje", "El pago fue realizado correctamente");
-	        modelAndView.setViewName("redirect:/ventaSucces");
+	        modelAndView.setViewName("ventaSucces");
 	    } else {
 	        // Configuramos el mensaje de error y redireccionamos a la vista de fallo
 	        modelAndView.addObject("mensaje", "!El pago no fue realizado correctamente¡");
-	        modelAndView.setViewName("redirect:/ventaFail");
+	        modelAndView.setViewName("ventaFail");
 	    }
 
 	    return modelAndView;
 	}
 
-	// Función que simula el pago y devuelve un booleano para indicar si fue exitoso o no
+	private void addVenta(Venta venta) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	// Función que procesa el pago y devuelve un booleano para indicar si fue exitoso o no
 	private boolean pagoSucces() {
 	    // Por ahora, todos los pagos son válidos YOLO
 	    return true;

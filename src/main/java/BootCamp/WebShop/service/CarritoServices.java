@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import BootCamp.WebShop.model.Carrito;
+import BootCamp.WebShop.model.Estados;
 @Service
 public interface CarritoServices {
     public Carrito saveCarrito(Carrito carrito);
@@ -13,5 +14,6 @@ public interface CarritoServices {
     public List<Carrito> getAllCarritos();
     public void deleteCarrito(Long idCarrito);
 	public void updateCarritoTotal(int total,int idCarrito);	
-	public void actualizarEstado( int idEstado, int idCarrito);
+	public void actualizarEstado(int idCarrito, Estados estado);
+	
 }

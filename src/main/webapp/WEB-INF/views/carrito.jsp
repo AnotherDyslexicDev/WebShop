@@ -56,13 +56,13 @@
 				</table>
 				</div>
 				<div class="col-12 d-flex justify-content-end mb-5">
-				        <form method="post" action="procesar-pago">
+				        <form method="post" action="${pageContext.request.contextPath}/venta/procesaPago">
 			  			<div class="form-group col-12">
 						    <div class="row">
 						    <c:forEach items="${formasPago}" var="formaPago">
 						    
 						      <div class="col-12 col-md-3 class="d-flex justify-content-center"">
-						        <input type="radio" name="formaPago" value="${formaPago.getIdFormaPago()}" required>
+						        <input type="radio" name="idFormaPago" value="${formaPago.getIdFormaPago()}" required>
 						        <img class="img-fluid" src="${pageContext.request.contextPath}${formaPago.getImagenFormaPago()}" alt="${formaPago.getNombreFormaPago()}">
 						        <span>${formaPago.getNombreFormaPago()}</span>
 						      </div>

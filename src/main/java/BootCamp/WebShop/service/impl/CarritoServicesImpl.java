@@ -47,12 +47,13 @@ public class CarritoServicesImpl implements CarritoServices {
 		carritoDao.updateCarritoTotal(total,idCarrito);
 		
 	}
-
 	@Override
-	public void actualizarEstado(int idEstado ,int idCarrito){
+	public void actualizarEstado(int idCarrito,Estados estado ){
 		
-		carritoDao.actualizarEstado(idEstado, idCarrito);
+		carritoDao.actualizarEstado(estado.getIdEstado(), idCarrito);
 		
 	}
+
+
 
 }

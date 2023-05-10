@@ -2,10 +2,12 @@ package BootCamp.WebShop.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import BootCamp.WebShop.dao.FormaPagoDao;
 import BootCamp.WebShop.model.FormaPago;
+import BootCamp.WebShop.model.Productos;
 
 @Service
 public class FormaPagoServices {
@@ -16,12 +18,11 @@ public class FormaPagoServices {
 		return formaPagoDao.getAllFormasPago();
 	}
 
+
+	@Autowired
+	HibernateTemplate hiberneteTemplate;
 	public FormaPago findById(Long idFormaPago) {
-		FormaPago formaPago = formaPagoDao.findById(idFormaPago);
-		if (formaPago == null) {
-			throw new IllegalArgumentException("El id de forma de pago no existe en la base de datos.");
-		}
-		return formaPago;
+	    return formaPagoDao.findById(idFormaPago.intValue());
 	}
 }
 

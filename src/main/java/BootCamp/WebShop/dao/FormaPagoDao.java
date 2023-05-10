@@ -16,8 +16,8 @@ public class FormaPagoDao {
 		List<FormaPago> listado = hiberneteTemplate.loadAll(FormaPago.class);
 		return listado;
 	}
-	@Autowired
-	public FormaPago findById(Long idFormaPago) {
+	
+	public FormaPago findById(int idFormaPago) {
 	    FormaPago formaPago = hiberneteTemplate.get(FormaPago.class, idFormaPago);
 	    return formaPago;
 	}

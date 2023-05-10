@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 
 import lombok.ToString;
 
@@ -18,8 +19,10 @@ public class Productos {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idProducto;    
-    private String nombreProducto;    
+    private int idProducto;
+   
+    private String nombreProducto;
+    
     private String descripcion;    
     private int precio;    
     private int stock;    
@@ -27,6 +30,7 @@ public class Productos {
     private java.sql.Timestamp actualizado;    
     private String imagen;    
     private String imagenSlider;    
+    @OrderBy("nombreProducto ASC")
     @JoinColumn(name = "categorias_idCategoria")
     private String categorias_idCategoria;   
     @JoinColumn(name = "proveedores_idProveedor")

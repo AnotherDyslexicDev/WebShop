@@ -19,6 +19,7 @@ import BootCamp.WebShop.model.FormaPago;
 import BootCamp.WebShop.model.Usuario;
 import BootCamp.WebShop.model.Venta;
 import BootCamp.WebShop.service.CarritoServices;
+import BootCamp.WebShop.service.DetalleVentaServices;
 import BootCamp.WebShop.service.FormaPagoServices;
 import BootCamp.WebShop.service.VentaServices;
 
@@ -31,6 +32,8 @@ public class VentaController {
     private CarritoServices carritoService;
 	@Autowired
     private VentaServices ventaServices;
+	@Autowired
+    private DetalleVentaServices detalleVentaServices;
 
 	@RequestMapping(value = "/procesaPago", method = RequestMethod.POST)
 	public ModelAndView procesaPago(HttpServletRequest request, HttpSession session) {
@@ -73,6 +76,7 @@ public class VentaController {
 	            detalleVenta.setActualizado(new Timestamp(System.currentTimeMillis()));
 	            detalleVenta.setVenta(venta);
 	            detalleVenta.setProducto(detalle.getProducto());
+	            detalleVentaServices.addDetalleVenta(detalleVenta);
 	        } 
 	      
 	        Estados estado = null;

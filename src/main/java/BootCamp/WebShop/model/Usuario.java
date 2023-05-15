@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 @Entity
@@ -26,6 +27,7 @@ public class Usuario {
     private java.sql.Timestamp actualizado;
     private String token;
     private java.sql.Timestamp setExpirationDate;
+    @OrderBy("nombreUsuario ASC")
     @OneToOne
     @JoinColumn(name = "roles_idRol")
     private Rol roles;

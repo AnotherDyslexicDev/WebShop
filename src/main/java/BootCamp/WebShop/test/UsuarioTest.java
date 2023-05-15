@@ -15,14 +15,6 @@ public class UsuarioTest {
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario("Juan");
         assertEquals("Juan", usuario.getNombreUsuario());
-    }
-
-    @Test
-    public void testsetNombreUsuario() {
-        Usuario usuario = new Usuario();
-        usuario.setNombreUsuario("Juan");
-        assertEquals("Juan", usuario.getNombreUsuario());
-    }
-    
+    }    
 
 }
